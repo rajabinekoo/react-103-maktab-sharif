@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- card component - start -->
+      <div class="card-wrapper" onclick="onClickCard(1)">
+        <div class="card">
+          <img
+            src="https://reqres.in/img/faces/10-image.jpg"
+            class="card-image"
+          />
+          <div class="card-body">
+            <div class="card-title" title="test test test test test test">
+              test test test test test test
+            </div>
+            <div class="card-desc">test test test test test test test test</div>
+          </div>
+        </div>
+      </div>
+      <!-- card component - end -->
+
+      <div style="margin-top: 30px"></div>
+
+      <!-- information card component - start -->
+      <div class="information-card-wrapper">
+        <div class="information-card">
+          <img
+            src="https://reqres.in/img/faces/10-image.jpg"
+            class="information-card-image"
+          />
+          <div class="information-card-body">
+            <p>firstname: ali</p>
+            <p>lastname: rajabi</p>
+          </div>
+        </div>
+      </div>
+      <!-- information card component - end -->
+    </div>
+
+    <script>
+      const onClickCard = (id) => {
+        console.log(id);
+      };
+    </script>
+  </body>
+</html>

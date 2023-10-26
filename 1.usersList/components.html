@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- card component: start -->
+    <div class="card" onclick="onClickHandler(4)">
+      <img class="card-image" src="https://reqres.in/img/faces/1-image.jpg" />
+      <div class="card-body">
+        <p
+          class="card-title"
+          title="testtesttesttesttesttesttesttesttesttesttesttesttesttest"
+        >
+          testtesttesttesttesttesttesttesttesttesttesttesttesttest
+        </p>
+        <p class="card-desc">
+          testtesttesttesttesttesttesttesttesttesttesttesttesttest
+        </p>
+      </div>
+    </div>
+    <!-- card component: end -->
+
+    <div style="margin-top: 50px"></div>
+
+    <!-- information card component: start -->
+    <div class="information-card">
+      <img
+        class="information-card-image"
+        src="https://reqres.in/img/faces/1-image.jpg"
+      />
+      <div class="information-card-body">
+        <p>ID: 1</p>
+        <p>Firstname: George</p>
+        <p>Lastname: Green</p>
+        <p>Email: george.green@mit.com</p>
+      </div>
+    </div>
+    <!-- information card component: end -->
+
+    <script>
+      function onClickHandler(id) {
+        console.log(id);
+      }
+    </script>
+  </body>
+</html>
