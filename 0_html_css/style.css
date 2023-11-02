@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --purple-blue: #6f0fff;
+  font-size: 18px;
+}
+
+p {
+  color: yellowgreen;
+}
+
+.red-para {
+  color: red;
+}
+
+span.green-typography {
+  color: green;
+}
+
+#super-title {
+  color: black !important;
+}
+
+/* * {
+  background-color: linen;
+} */
+
+a,
+img {
+  border: 5px solid rgb(50%, 50%, 0%);
+  /* display: none; */
+  /* visibility: hidden; */
+}
+
+.red-para,
+.green-typography {
+  font-weight: bold;
+}
+
+/* .inline-form label {
+  font-weight: bold;
+} */
+
+.inline-form > label {
+  font-weight: bold;
+}
+
+/* div + span {
+  background-color: red;
+} */
+
+div ~ span,
+div > span {
+  background-color: linen;
+}
+
+.box {
+  border: 1px solid red;
+  border-radius: 5px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.ol-container {
+  height: 150px;
+  width: 100px;
+  overflow-y: auto;
+  border: 1px solid var(--purple-blue);
+}
+
+.ol-wrapper {
+  display: flex;
+  justify-content: end;
+  position: sticky;
+  top: 10px;
+}
+
+.chat-button {
+  background-color: var(--purple-blue);
+  border: 1px solid var(--purple-blue);
+  border-radius: 50%;
+  padding: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.chat-button:hover {
+  cursor: pointer;
+  background-color: #540cc0;
+}
+
+.parent-box {
+  background-color: black;
+  width: 200px;
+  height: 150px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.child-box {
+  background-color: red;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 1;
+}
+
+.child-box2 {
+  background-color: blue;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 0;
+}
+
+a:visited {
+  color: black;
+  text-decoration: line-through !important;
+}
+
+.typography-parent {
+  font-size: 14px;
+}
+
+.typography-child1 {
+  font-size: 1.2rem;
+}
+
+.typography-child2 {
+  font-size: 1.2em;
+}
