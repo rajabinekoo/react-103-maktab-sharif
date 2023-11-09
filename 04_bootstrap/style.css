@@ -1,0 +1,56 @@
+.alert-purple {
+  background-color: #f0ecf9;
+}
+
+.alert-info-light {
+  background-color: #e7f6f8;
+}
+
+.statistics-icons {
+  font-size: 70px;
+}
+
+.tv-icon {
+  color: #f7c32e;
+}
+
+.student-icon {
+  color: #6f42c1;
+}
+
+.certificate-icon {
+  color: #17a2b8;
+}
+
+.badge-purple {
+  background-color: #f0ecf9;
+  color: #764cc5;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.card-title-link {
+  color: black;
+}
+
+.card-text-wrapper {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.rating-star {
+  color: #f7c32e;
+}
+
+.clock-icon {
+  color: red;
+}
