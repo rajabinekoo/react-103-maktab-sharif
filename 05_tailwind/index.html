@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            mulish: ["Mulish", "sans-serif"],
+          },
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-mulish">
+    <section class="w-full bg-sky-100 py-6">
+      <div class="text-center max-w-lg mx-auto">
+        <p class="text-4xl font-extrabold">What Clients Say?</p>
+        <p class="text-gray-400 font-semibold mt-4">
+          There are many variations of passages of Lorem Ipsum available but the
+          majority have suffered alteration in some form.
+        </p>
+      </div>
+
+      <div id="container" class="xl:max-w-7xl lg:max-w-5xl md:max-w-4xl sm:max-w-2xl px-4 mt-16 mx-auto grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10"></div>
+    </section>
+
+    <script src="main.js"></script>
+  </body>
+</html>
