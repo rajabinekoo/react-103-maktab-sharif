@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div class="p-4 grid grid-cols-3">
+      <div
+        id="hoverDiv"
+        class="bg-red-500 w-60 h-60 flex justify-center items-center p-8"
+      >
+        <p class="text-white text-2xl">Hover me</p>
+      </div>
+
+      <div
+        id="clickDiv"
+        class="bg-blue-500 w-60 h-60 flex justify-center items-center"
+      >
+        <p class="text-white text-2xl">Click me</p>
+      </div>
+    </div>
+     -->
+
+    <div id="container" class="p-8">
+      <form id="submitForm">
+        <input
+          placeholder="username"
+          id="username-input"
+          class="border border-gray-500 rounded p-2"
+        />
+        <button
+          id="submitButton"
+          type="submit"
+          class="bg-cyan-300 px-4 py-2 rounded"
+        >
+          submit
+        </button>
+      </form>
+    </div>
+
+    <div id="menu" class="p-4 text-white">
+      <button
+        class="bg-red-500 px-4 py-2 rounded"
+        data-chert="pert"
+        data-action="save"
+      >
+        Save
+      </button>
+      <button
+        class="bg-yellow-600 px-4 py-2 rounded"
+        data-action="load"
+        data-x="y"
+      >
+        Load
+      </button>
+      <button class="bg-pink-600 px-4 py-2 rounded" data-action="search">
+        Search
+      </button>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
