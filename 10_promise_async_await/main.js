@@ -29,7 +29,7 @@
 //   console.log(users);
 // }
 
-// format2
+// format2 -> Promise Hell
 // let users = [];
 // fetch("https://reqres.in/api/users?page=1").then((response) => {
 //   response.json().then((body) => {
@@ -85,19 +85,19 @@
 // }, 1000);
 
 // promise ->
-const setTimeoutPromise = (timeout = 0) => {
-  return new Promise((resolve, reject) => {
-    if (timeout >= 5000) {
-      reject("Is too long");
-    } else if (timeout < 0) {
-      reject("Timeout must be positive");
-    } else {
-      setTimeout(() => {
-        resolve(timeout);
-      }, timeout);
-    }
-  });
-};
+// const setTimeoutPromise = (timeout = 0) => {
+//   return new Promise((resolve, reject) => {
+//     if (timeout >= 5000) {
+//       reject("Is too long");
+//     } else if (timeout < 0) {
+//       reject("Timeout must be positive");
+//     } else {
+//       setTimeout(() => {
+//         resolve(timeout);
+//       }, timeout);
+//     }
+//   });
+// };
 
 // setTimeoutPromise(1000)
 //   .then((t) => {
@@ -117,6 +117,9 @@ const setTimeoutPromise = (timeout = 0) => {
 //   })
 //   .catch((err) => {
 //     alert(err);
+//   })
+//   .finally(() => {
+//     console.log("Done");
 //   });
 
 // error ->
@@ -135,20 +138,20 @@ const setTimeoutPromise = (timeout = 0) => {
 // const asyncBoundry2 = async () => {};
 // const asyncBoundry3 = async function () {};
 
-async function asyncBoundry() {
-  try {
-    const t1 = await setTimeoutPromise(1000);
-    console.log("log1 with time:", t1);
-    const t2 = await setTimeoutPromise(6000);
-    console.log("log2 with time:", t2);
-    const t3 = await setTimeoutPromise(2000);
-    console.log("log3 with time:", t3);
-    const t4 = await setTimeoutPromise(5000);
-    console.log("log4 with time:", t4);
-  } catch (error) {
-    alert(error);
-  }
-}
+// async function asyncBoundry() {
+//   try {
+//     const t1 = await setTimeoutPromise(1000);
+//     console.log("log1 with time:", t1);
+//     const t2 = await setTimeoutPromise(6000);
+//     console.log("log2 with time:", t2);
+//     const t3 = await setTimeoutPromise(2000);
+//     console.log("log3 with time:", t3);
+//     const t4 = await setTimeoutPromise(5000);
+//     console.log("log4 with time:", t4);
+//   } catch (error) {
+//     alert(error);
+//   }
+// }
 
 // asyncBoundry();
 
@@ -175,7 +178,7 @@ async function asyncBoundry() {
 //     console.log(err);
 //   });
 
-// ************ Try Catch ************
+// ************ Try Catch , Throw ************
 
 // try {
 //   console.log("salam");
@@ -194,15 +197,80 @@ async function reqresRequestClient(url) {
   return result;
 }
 
-async function main() {
-  try {
-    const result = await reqresRequestClient(
-      "https://reqres.io/api/users?page=1"
-    );
-    console.log(result);
-  } catch (error) {
-    alert(error.message);
-  }
-}
+// async function main() {
+//   try {
+//     const result = await reqresRequestClient(
+//       "https://reqres.in/api/users?page=1"
+//     );
+//     console.log(result);
+//   } catch (error) {
+//     alert(error.message);
+//   } finally {
+//     console.log("Done");
+//   }
+// }
 
-main();
+// main();
+
+// *******************************************
+// Promise All
+// *******************************************
+
+// const users = [];
+// const totalUsers = 12;
+// async function fetchAllUsers() {
+//   try {
+//     const requests = [];
+//     for (let id = 1; id <= totalUsers; id++) {
+//       requests.push(reqresRequestClient(`https://reqres.in/api/users/${id}`));
+//     }
+//     const results = await Promise.all(requests);
+//     console.log(results);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
+
+// fetchAllUsers();
+
+// const users = [];
+// const totalUsers = 12;
+// async function fetchAllUsers2() {
+//   try {
+//     const ids = [];
+//     for (let id = 1; id <= totalUsers; id++) ids.push(id);
+//     const results = await Promise.all(
+//       ids.map((id) => {
+//         return reqresRequestClient(`https://reqres.in/api/users/${id}`);
+//       })
+//     );
+//     console.log(results);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
+
+// fetchAllUsers2();
+
+// *******************************************
+// Promise Race
+// *******************************************
+
+// const users = [];
+// const totalUsers = 12;
+// async function fetchOneUserFromAllUsersWhenUserComesFirst() {
+//   try {
+//     const ids = [];
+//     for (let id = 1; id <= totalUsers; id++) ids.push(id);
+//     const result = await Promise.race(
+//       ids.map((id) => {
+//         return reqresRequestClient(`https://reqres.in/api/users/${id}`);
+//       })
+//     );
+//     console.log(result);
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
+
+// fetchOneUserFromAllUsersWhenUserComesFirst();
