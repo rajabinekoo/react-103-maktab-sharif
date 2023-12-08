@@ -1,5 +1,8 @@
 <div class="my-16">
-  <p class="text-3xl font-bold mb-8">Movies List</p>
+  <div class="mb-8 flex justify-between">
+    <p class="text-3xl font-bold">Movies List</p>
+    <load ="/components/creationBtn/index.html" />
+  </div>
 
   <div class="relative overflow-x-auto">
     <table
@@ -13,11 +16,14 @@
           <th scope="col" class="px-6 py-3">Release Date</th>
           <th scope="col" class="px-6 py-3">Rate</th>
           <th scope="col" class="px-6 py-3">Price</th>
+          <th scope="col" class="py-3"></th>
         </tr>
       </thead>
       <tbody id="movies-list-tbody"></tbody>
     </table>
   </div>
 </div>
+
+<load ="/components/editBtn/index.html" />
 
 <script type="module" src="/components/movies/index.js"></script>
