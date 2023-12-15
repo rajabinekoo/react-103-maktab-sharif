@@ -1,4 +1,5 @@
 export const errorHandler = (axiosError) => {
+  if (!axiosError.response) console.log(axiosError);
   if (axiosError.response.status === 403) {
     window.location.href = "/login";
     window.sessionStorage.removeItem("token");

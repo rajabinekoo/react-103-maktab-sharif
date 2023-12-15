@@ -26,7 +26,7 @@ export function addTask(createdTask) {
 }
 
 export function removeTask(id) {
-  tasks = tasks.filter((el) => el.id !== id);
+  tasks = tasks.filter((el) => el.id !== Number(id));
 }
 
 export async function getInprogressTasks() {
@@ -39,4 +39,22 @@ export async function getCompletedTasks() {
   const list = await fetchUserTasks();
   if (!list) return [];
   return list.filter((el) => el.isCompleted);
+}
+
+export async function done(id) {
+  tasks = tasks.map((el) => {
+    if (el.id === Number(id)) {
+      return { ...el, isCompleted: true };
+    }
+    return el;
+  });
+}
+
+export async function undone(id) {
+  tasks = tasks.map((el) => {
+    if (el.id === Number(id)) {
+      return { ...el, isCompleted: false };
+    }
+    return el;
+  });
 }
