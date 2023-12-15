@@ -82,18 +82,18 @@ export class TaskController {
     return this.sneakerService.findOneById(id);
   }
 
-  @Get('categories')
-  getCategories() {
-    return this.sneakerService.getCategories();
-  }
-
   @Get('brands')
   getBrands() {
     return this.sneakerService.getBrands();
   }
 
-  @Get('genders')
-  getGenders() {
-    return this.sneakerService.getGenders();
-  }
+  // @Get('categories')
+  // getCategories() {
+  //   return this.sneakerService.getCategories();
+  // }
+
+  // @Get('genders')
+  // getGenders() {
+  //   return this.sneakerService.getGenders();
+  // }
 }
