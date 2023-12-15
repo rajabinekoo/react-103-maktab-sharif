@@ -7,15 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('Task Manager')
-    .setDescription('The task manager API description')
+    .setTitle('Sneakers Manager')
+    .setDescription('The sneaker manager API description')
     .setVersion('1.0')
     .addTag('auth')
     .addTag('user')
-    .addTag('task')
+    .addTag('sneaker')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
