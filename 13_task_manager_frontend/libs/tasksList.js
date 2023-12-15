@@ -24,3 +24,19 @@ export function addTask(createdTask) {
   if (Array.isArray(tasks)) tasks.push(createdTask);
   else tasks = [createdTask];
 }
+
+export function removeTask(id) {
+  tasks = tasks.filter((el) => el.id !== id);
+}
+
+export async function getInprogressTasks() {
+  const list = await fetchUserTasks();
+  if (!list) return [];
+  return list.filter((el) => !el.isCompleted);
+}
+
+export async function getCompletedTasks() {
+  const list = await fetchUserTasks();
+  if (!list) return [];
+  return list.filter((el) => el.isCompleted);
+}

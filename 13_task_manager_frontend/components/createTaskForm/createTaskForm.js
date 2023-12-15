@@ -4,6 +4,7 @@ import { addTask } from "../../libs/tasksList";
 
 const form = document.getElementById("createTaskForm");
 const errorAlert = document.getElementById("createTaskError");
+const successfullyAlert = document.getElementById("createTaskSuccessful");
 
 const data = {};
 
@@ -23,6 +24,11 @@ form.addEventListener("submit", async function (ev) {
       headers: { Authorization: token },
     });
     addTask(response.data);
+    successfullyAlert.classList.remove("hidden");
+    successfullyAlert.innerText = "Created";
+    setTimeout(() => {
+      successfullyAlert.classList.add("hidden");
+    }, 4000);
   } catch (error) {
     const html = errorHandler(error);
     errorAlert.classList.remove("hidden");

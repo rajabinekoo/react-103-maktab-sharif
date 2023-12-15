@@ -8,9 +8,12 @@
   <body>
     <load ="./components/headers/tasks.html" />
 
-    <div class="flex justify-center px-4 sm:px-0 mt-8">
+    <div class="flex flex-col items-center px-4 sm:px-0 mt-8 gap-y-5 mb-20">
       <load ="./components/createTaskForm/index.html" />
+      <load ="./components/tasksList/inprogressList.html" />
+      <load ="./components/tasksList/completedList.html" />
     </div>
+    
     <script type="module" src="/main.js"></script>
   </body>
 </html>
