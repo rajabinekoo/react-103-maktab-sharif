@@ -1,8 +1,9 @@
 import axios from "axios";
 import { errorHandler } from "../../libs/errorHandler";
+import { addTask } from "../../libs/tasksList";
 
-const form = document.getElementById("signupForm");
-const errorAlert = document.getElementById("signupFormError");
+const form = document.getElementById("createTaskForm");
+const errorAlert = document.getElementById("createTaskError");
 
 const data = {};
 
@@ -13,20 +14,15 @@ form.addEventListener("input", function (ev) {
 
 form.addEventListener("submit", async function (ev) {
   ev.preventDefault();
-  if (data.repeatPassword !== data.password) {
-    errorAlert.classList.remove("hidden");
-    errorAlert.innerText = "Password and repeat password are not equal";
-    return;
-  }
-  delete data["repeatPassword"];
   try {
+    const token = window.sessionStorage.getItem("token");
     const response = await axios({
       method: "post",
-      url: "http://localhost:3000/auth/signup",
+      url: "http://localhost:3000/task",
       data,
+      headers: { Authorization: token },
     });
-    window.sessionStorage.setItem("token", response.data.token);
-    window.location.href = "/tasks";
+    addTask(response.data);
   } catch (error) {
     const html = errorHandler(error);
     errorAlert.classList.remove("hidden");

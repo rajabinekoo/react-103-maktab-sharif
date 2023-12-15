@@ -1,5 +1,8 @@
 export const errorHandler = (axiosError) => {
-  if (Array.isArray(axiosError.response.data.message)) {
+  if (axiosError.response.status === 403) {
+    window.location.href = "/login";
+    window.sessionStorage.removeItem("token");
+  } else if (Array.isArray(axiosError.response.data.message)) {
     let html = "";
     for (const err of axiosError.response.data.message) {
       html += `<p>* ${err}</p>`;
