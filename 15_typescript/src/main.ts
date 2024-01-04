@@ -177,14 +177,14 @@ class Animal extends AnimalBase {
     aging: number,
     color: string,
     vegan: boolean,
-    iq: number,
+    a: number,
     category: animalCategory,
     song: string
   ) {
     super(name, aging);
     this.color = color;
     this.vegan = vegan;
-    this.iq = iq;
+    this.iq = a;
     this.category = category;
     this.song = song;
     // this refers to internal fields
@@ -201,21 +201,41 @@ class Animal extends AnimalBase {
 }
 
 class Human extends AnimalBase {
-  iq: number = 0;
-  msg: string = "";
+  private mobileNumber: string = "";
 
-  constructor(name: string, aging: number, iq: number, msg: string) {
-    super(name, aging);
-    this.iq = iq;
-    this.msg = msg;
+  // constructor attributes shorthand
+  constructor(a: string, b: number, public iq: number, private msg: string) {
+    super(a, b);
   }
 
-  speak(): string {
+  public speak(): string {
     return `${this.name} says ${this.msg}`;
   }
 
-  teach() {
-    this.iq += 20;
+  private mobileNumberNormalizer(mobNum: string) {
+    const normalized = mobNum.replace("+98", "").replace("09", "");
+    if (normalized.length !== 10) {
+      throw new Error("Invalid phone number");
+    }
+    return normalized;
+  }
+
+  // setters and getters - simple
+  public getMobileNumber(): string | undefined {
+    return !!this.mobileNumber ? `09${this.mobileNumber}` : undefined;
+  }
+
+  public setMobileNumber(mobileNumber: string): void {
+    this.mobileNumber = this.mobileNumberNormalizer(mobileNumber);
+  }
+
+  // setters and getters - standard
+  public get phoneNumber(): string | undefined {
+    return !!this.mobileNumber ? `09${this.mobileNumber}` : undefined;
+  }
+
+  public set phoneNumber(mobileNumber: string) {
+    this.mobileNumber = this.mobileNumberNormalizer(mobileNumber);
   }
 }
 
@@ -237,17 +257,24 @@ const kalagh2 = new Animal(
   "parande",
   "ghaaaaaar ghaaaaaar"
 );
-console.log(kalagh1.speak());
-console.log(kalagh2.speak());
-console.log(kalagh2);
-kalagh2.teach();
+// console.log(kalagh1.speak());
+// console.log(kalagh2.speak());
+// console.log(kalagh2);
+// kalagh2.teach();
 console.log(kalagh2.iq);
 
 const human1 = new Human("Nicola", 40, 210, "freedom of tech");
+// console.log(human1.getMobileNumber());
+// human1.setMobileNumber("+989212212211");
+// console.log(human1.getMobileNumber());
+
+console.log(human1.phoneNumber);
+human1.phoneNumber = "+989212212211";
+console.log(human1.phoneNumber);
 
 // polymorphism model 1
-console.log(human1.speak());
-console.log(kalagh2.speak());
+// console.log(human1.speak());
+// console.log(kalagh2.speak());
 
 // polymorphism model 2
 function increaseAging(input: Human | Animal) {
@@ -258,8 +285,8 @@ function printAge(input: AnimalBase) {
   console.log(`${input.name} age:`, input.aging);
 }
 
-increaseAging(human1);
-increaseAging(kalagh2);
+// increaseAging(human1);
+// increaseAging(kalagh2);
 
-printAge(kalagh2);
-printAge(human1);
+// printAge(kalagh2);
+// printAge(human1);
