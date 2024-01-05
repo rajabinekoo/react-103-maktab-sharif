@@ -20,20 +20,45 @@ interface ISneakersList {
   perPage: number;
   data: ISneaker[];
 }
+interface IGetSneakerQueries {
+  page?: number;
+  limit?: number;
+  search?: string;
+  brands?: string;
+}
 type getSneakersFuncType = (
-  page?: number,
-  limit?: number
+  queries?: IGetSneakerQueries
 ) => Promise<ISneakersList>;
-export const getSneakersApi: getSneakersFuncType = async (
-  page = 1,
-  limit = 10
-) => {
+export const getSneakersApi: getSneakersFuncType = async (queries) => {
   const session = new Session();
+  const queryStrings = new URLSearchParams(queries as any);
+  if (!queries?.limit) {
+    queryStrings.set("limit", "10");
+  }
+  if (!queries?.page) {
+    queryStrings.set("page", "1");
+  }
+  if (!queries?.search && queryStrings.has("search")) {
+    queryStrings.delete("search");
+  }
+  if (!queries?.brands && queryStrings.has("brands")) {
+    queryStrings.delete("brands");
+  }
+
   const response = await axios.get(
-    serverUrl + sneakerUrls.list + `?page=${page}&limit=${limit}`,
+    serverUrl + sneakerUrls.list + `?${queryStrings.toString()}`,
     {
       headers: { Authorization: `Bearer ${session.token}` },
     }
   );
   return response.data as ISneakersList;
+};
+
+type getSneakersBrandsFuncType = () => Promise<string[]>;
+export const getSneakersBrandsApi: getSneakersBrandsFuncType = async () => {
+  const session = new Session();
+  const response = await axios.get(serverUrl + sneakerUrls.brands, {
+    headers: { Authorization: `Bearer ${session.token}` },
+  });
+  return response.data as string[];
 };

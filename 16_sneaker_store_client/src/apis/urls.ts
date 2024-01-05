@@ -7,6 +7,7 @@ export const authUrls = {
 
 export const sneakerUrls = {
   list: "/sneaker",
+  brands: "/sneaker/brands",
 };
 
 export const userUrls = {

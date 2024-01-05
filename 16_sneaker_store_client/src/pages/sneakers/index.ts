@@ -3,6 +3,9 @@ import { ISneaker, getSneakersApi } from "../../apis/sneaker-apis";
 import { errorHandler } from "../../utils/errorHandler";
 import { UserInfo } from "../../utils/userInfo";
 import { Session } from "../../utils/session";
+import { Searchbar } from "../../components/searchbar";
+import { Match } from "navigo";
+import { BrandFilters } from "../../components/filters/brand";
 
 declare global {
   interface Window {
@@ -16,9 +19,9 @@ window.logout = () => {
   window.navigate("/");
 };
 
-const getSneakersList = async () => {
+const getSneakersList = async (search?: string, brands?: string) => {
   try {
-    return await getSneakersApi();
+    return await getSneakersApi({ search, brands });
   } catch (error) {
     errorHandler(<AxiosError>error);
   }
@@ -26,7 +29,7 @@ const getSneakersList = async () => {
 
 const SneakerCard = (sneaker: ISneaker) => {
   return `
-  <div>
+  <div class="cursor-pointer" onclick="navigate('/sneakers/${sneaker.id}')">
     <img
       class="rounded-3xl w-full h-40"
       src="${sneaker.imageURL}"
@@ -41,15 +44,17 @@ const SneakerCard = (sneaker: ISneaker) => {
 
 const SneakersList = (sneakers: ISneaker[]) => {
   let html = "";
-
   for (const snk of sneakers) {
     html += SneakerCard(snk);
   }
   return html;
 };
 
-export const SneakersPage = async () => {
-  const sneakersList = await getSneakersList();
+export const SneakersPage = async (props: Match | undefined) => {
+  const sneakersList = await getSneakersList(
+    props?.params?.search,
+    props?.params?.brands
+  );
   const userInfo = await UserInfo();
 
   return `
@@ -64,6 +69,17 @@ export const SneakersPage = async () => {
         </svg> 
       </button> 
     </div>
+    <div class="mb-6 mt-1">
+      ${Searchbar(props)}
+    </div>
+    <div class="mb-6 mt-1">
+      ${await BrandFilters(props)}
+    </div>
+    ${
+      !sneakersList?.data.length
+        ? "<p class='text-center w-full'>Not Found</p>"
+        : ""
+    }
     <main class="grid grid-cols-2 gap-4">
       ${SneakersList(sneakersList?.data || [])}
     </main>

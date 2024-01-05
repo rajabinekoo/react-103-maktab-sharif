@@ -5,6 +5,6 @@ export const errorHandler = (e: AxiosError) => {
   if (e.response?.status === 403) {
     const session = new Session();
     session.logout();
-    window.navigate("/");
+    window.location.href = "/";
   }
 };
