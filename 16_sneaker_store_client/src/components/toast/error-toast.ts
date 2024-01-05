@@ -1,12 +1,16 @@
-const ErrorsList = (messages: string[]) => {
+const ErrorsList = (messages: string[] | string) => {
   let html = "";
-  for (const msg of messages) {
-    html += `<p class="mt-1 text-sm text-gray-500 capitalize">${msg}</p>`;
+  if (messages instanceof Array) {
+    for (const msg of messages) {
+      html += `<p class="mt-1 text-sm text-gray-500 capitalize">${msg}</p>`;
+    }
+  } else {
+    html += `<p class="mt-1 text-sm text-gray-500 capitalize">${messages}</p>`;
   }
   return html;
 };
 
-type props = { errorsList: string[]; closeFunctionName: string };
+type props = { errorsList: string[] | string; closeFunctionName: string };
 export const ErrorToast = ({ errorsList, closeFunctionName }: props) => {
   return `
 <div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">

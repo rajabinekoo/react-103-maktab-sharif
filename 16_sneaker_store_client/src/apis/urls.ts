@@ -4,3 +4,7 @@ export const authUrls = {
   login: "/auth/login",
   signup: "/auth/signup",
 };
+
+export const sneakerUrls = {
+  list: "/sneaker",
+};

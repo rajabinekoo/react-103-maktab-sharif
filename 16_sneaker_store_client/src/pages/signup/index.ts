@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { ISignupBody, signupApi } from "../../apis/auth-apis";
 import { render } from "../../router";
 import { ErrorToast } from "../../components/toast/error-toast";
+import { Session } from "../../utils/session";
 
 declare global {
   interface Window {
@@ -24,10 +25,12 @@ window.handleSignup = async () => {
   };
 
   try {
-    await signupApi(body);
+    const response = await signupApi(body);
+    const sesssion = new Session();
+    sesssion.setAccessToken(response.token);
+    window.navigate("/sneakers");
   } catch (error) {
     const err = <AxiosError>error;
-    console.log(err.response?.data);
     render(
       SignupPage(
         ErrorToast({

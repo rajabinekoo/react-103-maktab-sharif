@@ -1,5 +1,54 @@
-export const LoginPage = () => {
+import { AxiosError } from "axios";
+import { ILoginBody, loginApi } from "../../apis/auth-apis";
+import { Session } from "../../utils/session";
+import { render } from "../../router";
+import { ErrorToast } from "../../components/toast/error-toast";
+
+declare global {
+  interface Window {
+    handleLogin: () => Promise<void>;
+    loginNotificationClose: () => void;
+  }
+}
+
+window.handleLogin = async () => {
+  const usernameInput = <HTMLInputElement>(
+    document.getElementById("login-form-username")
+  );
+  const passwordInput = <HTMLInputElement>(
+    document.getElementById("login-form-password")
+  );
+
+  const body: ILoginBody = {
+    username: usernameInput.value,
+    password: passwordInput.value,
+  };
+
+  try {
+    const response = await loginApi(body);
+    const sesssion = new Session();
+    sesssion.setAccessToken(response.token);
+    window.navigate("/sneakers");
+  } catch (error) {
+    const err = <AxiosError>error;
+    render(
+      LoginPage(
+        ErrorToast({
+          errorsList: (<any>err.response?.data).message || [],
+          closeFunctionName: "loginNotificationClose",
+        })
+      )
+    );
+  }
+};
+
+window.loginNotificationClose = () => {
+  render(LoginPage());
+};
+
+export const LoginPage = (notifElement?: string) => {
   return `
+  ${notifElement || ""}
   <div class="w-full h-full flex flex-wrap justify-center">
       <div class="flex flex-col justify-center items-center gap-y-4 pt-32">
         <svg
@@ -37,6 +86,7 @@ export const LoginPage = () => {
           </div>
           <input
             type="text"
+            id="login-form-username"
             name="username"
             class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-50 bg-gray-50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             placeholder="Username"
@@ -62,6 +112,7 @@ export const LoginPage = () => {
           </div>
           <input
             type="password"
+            id="login-form-password"
             name="password"
             class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-50 bg-gray-50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             placeholder="Password"
@@ -72,7 +123,7 @@ export const LoginPage = () => {
       </div>
 
       <div class="self-end w-full pb-8">
-        <button class="bg-black text-white w-full py-2 rounded-3xl">
+        <button onclick="handleLogin()" class="bg-black text-white w-full py-2 rounded-3xl">
           <p class="text-sm font-medium">Sign In</p>
         </button>
       </div>
