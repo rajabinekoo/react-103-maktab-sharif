@@ -2,7 +2,7 @@ import axios from "axios";
 import { sneakerUrls, serverUrl } from "./urls";
 import { Session } from "../utils/session";
 
-interface ISneaker {
+export interface ISneaker {
   id: number;
   name: string;
   imageURL: string;

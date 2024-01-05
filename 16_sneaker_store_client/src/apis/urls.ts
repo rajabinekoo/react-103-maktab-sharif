@@ -8,3 +8,7 @@ export const authUrls = {
 export const sneakerUrls = {
   list: "/sneaker",
 };
+
+export const userUrls = {
+  userInfo: "/user",
+};

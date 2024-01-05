@@ -29,7 +29,9 @@ router.on("signup", function () {
   render(SignupPage());
 });
 
-router.on("/sneakers", async function () {
+router.on("/sneakers", async function (params) {
+  console.log("params", params);
+
   render(await SneakersPage());
 });
 
