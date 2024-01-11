@@ -1,0 +1,9 @@
+.appLogoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.appLogoContainer:hover {
+  background-color: red;
+  cursor: pointer;
+}
