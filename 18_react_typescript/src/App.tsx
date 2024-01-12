@@ -1,9 +1,9 @@
-import { PlanContainer } from "./containers/plans";
+import { PlanContainer2 } from "./containers/plans";
 
 function App() {
   return (
     <section className="font-inter">
-      <PlanContainer />
+      <PlanContainer2 />
     </section>
   );
 }
