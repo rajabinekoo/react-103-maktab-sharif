@@ -1,7 +1,8 @@
-import { v4 as uuidV4 } from "uuid";
+export interface ITaskForm {
+  title: string;
+  description: string;
+}
 
-export class Task {
-  public id: string = uuidV4();
-
-  constructor(public title: string, public description: string) {}
+export interface ITask extends ITaskForm {
+  id: string;
 }

@@ -7,6 +7,16 @@ import { useEffect, useState } from "react";
 export const Count = () => {
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
+  const [payload, setPayload] = useState([1, 2, 3]);
+
+  const changePayload = () => {
+    // setPayload(payload);
+    setPayload([1, 2, 3]);
+  };
+
+  const resetCount1 = () => {
+    setCount(0);
+  };
 
   const increase = () => {
     setCount(count + 1);
@@ -53,7 +63,7 @@ export const Count = () => {
       <p>count1: {count}</p>
       <p>count2: {count2}</p>
       <button
-        className="bg-red-300 border rounded px-4 py-1"
+        className="bg-indigo-300 border rounded px-4 py-1"
         onClick={increase}
       >
         Increase count1
@@ -64,6 +74,24 @@ export const Count = () => {
       >
         Increase count2
       </button>
+      <button
+        className="bg-red-300 border rounded px-4 py-1"
+        onClick={resetCount1}
+      >
+        Reset count 1
+      </button>
+      <br />
+      <br />
+      <br />
+      <button
+        className="bg-red-300 border rounded px-4 py-1"
+        onClick={changePayload}
+      >
+        Change payload
+      </button>
+      {payload.map((el) => (
+        <span key={el}>{el}</span>
+      ))}
     </div>
   );
 };

@@ -1,39 +1,41 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import { classnames } from "../utils/tools";
+import { ITask, ITaskForm } from "../utils/types";
 
 type props = {
-  title: string;
-  description: string;
-  onChangeTitle: ChangeEventHandler<HTMLInputElement>;
-  onChangeDescription: ChangeEventHandler<HTMLInputElement>;
-  saveTask: () => void;
+  saveTask: (_: ITaskForm) => void;
   changeToCreationForm?: () => void;
-  editMode?: boolean;
+  targetTask?: ITask;
 };
 export const TaskForm: React.FC<props> = ({
   changeToCreationForm,
   saveTask,
-  title,
-  description,
-  onChangeTitle,
-  onChangeDescription,
-  editMode = false,
+  targetTask,
 }) => {
   const [errors, setErrors] = useState<{ title: string; description: string }>({
-    title: '',
+    title: "",
     description: "",
   });
+  const [formValues, setFormValues] = useState<ITaskForm>({
+    title: "",
+    description: "",
+  });
+  const editMode = Boolean(targetTask);
+
+  const onChangeForm: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let isValid = true;
-    if (title.length < 3) {
+    if (formValues.title.length < 3) {
       const newErrors = { ...errors };
       newErrors.title = "Title must be more then or equal 3 characters";
       setErrors(newErrors);
       isValid = false;
     }
-    if (description.length < 5) {
+    if (formValues.description.length < 5) {
       const newErrors = { ...errors };
       newErrors.description =
         "Description must be more then or equal 5 characters";
@@ -42,8 +44,25 @@ export const TaskForm: React.FC<props> = ({
     }
     if (!isValid) return;
     setErrors({ title: "", description: "" });
-    saveTask();
+    saveTask(formValues);
+    if (!editMode) {
+      setFormValues({ title: "", description: "" });
+    }
   };
+
+  useEffect(() => {
+    if (!targetTask) {
+      setFormValues({
+        title: "",
+        description: "",
+      });
+    } else {
+      setFormValues({
+        title: targetTask.title,
+        description: targetTask.description,
+      });
+    }
+  }, [targetTask]);
 
   return (
     <section className="flex justify-center pt-20 px-6">
@@ -72,8 +91,8 @@ export const TaskForm: React.FC<props> = ({
                 !!errors.title ? "border-red-400" : "border-gray-300"
               )}
               placeholder="title"
-              onChange={onChangeTitle}
-              value={title}
+              onChange={onChangeForm}
+              value={formValues.title}
             />
             {!!errors.title && (
               <p className="text-red-500 text-sm mt-2">{errors.title}</p>
@@ -96,8 +115,8 @@ export const TaskForm: React.FC<props> = ({
                 !!errors.description ? "border-red-400" : "border-gray-300"
               } rounded-md`}
               placeholder="description"
-              onChange={onChangeDescription}
-              value={description}
+              onChange={onChangeForm}
+              value={formValues.description}
             />
             {!!errors.description && (
               <p className="text-red-500 text-sm mt-2">{errors.description}</p>

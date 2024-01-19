@@ -1,9 +1,9 @@
 import React from "react";
-import { Task } from "../utils/types";
+import { ITask } from "../utils/types";
 import { classnames } from "../utils/tools";
 
 type props = {
-  list?: Task[];
+  list?: ITask[];
   removeTask: (_: string) => void;
   editTask: (_: string) => void;
 };

@@ -1,47 +1,28 @@
-import { ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import { TaskForm } from "../components/task-form";
 import { TaskList } from "../components/task-list";
-import { Task } from "../utils/types";
+import { ITask, ITaskForm } from "../utils/types";
+import { v4 as uuidV4 } from "uuid";
 
 export const TodoListContainer = () => {
-  const [tasksList, setTasksList] = useState<Task[]>([]);
-  const [targetId, setTargetId] = useState<string>();
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [tasksList, setTasksList] = useState<ITask[]>([]);
+  const [targetTask, setTargetTask] = useState<ITask>();
 
-  const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeDescription: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const value = e.target.value;
-    const valueArray = value.split("");
-    let isValid = false;
-    for (const char of valueArray) {
-      if (isNaN(Number(char))) {
-        isValid = true;
-      }
-    }
-
-    if (isValid || value.length === 0) setDescription(e.target.value);
-  };
-
-  const saveTask = () => {
-    if (Boolean(targetId)) {
+  const saveTask = (formValues: ITaskForm) => {
+    if (Boolean(targetTask)) {
       setTasksList(
         tasksList.map((el) => {
-          if (el.id === targetId) {
-            return { id: el.id, title, description };
+          if (el.id === targetTask?.id) {
+            return { id: el.id, ...formValues };
           }
           return el;
         })
       );
     } else {
       const newTasksList = [...tasksList];
-      newTasksList.push(new Task(title, description));
+      const newTask: ITask = { ...formValues, id: uuidV4() };
+      newTasksList.push(newTask);
       setTasksList(newTasksList);
-      setTitle("");
-      setDescription("");
     }
   };
 
@@ -50,28 +31,19 @@ export const TodoListContainer = () => {
   };
 
   const editTask = (id: string) => {
-    const task = tasksList.find((el) => el.id === id);
-    setTargetId(task?.id);
-    setTitle(task?.title || "");
-    setDescription(task?.description || "");
+    setTargetTask(tasksList.find((el) => el.id === id));
   };
 
   const changeToCreationForm = () => {
-    setTargetId(undefined);
-    setTitle("");
-    setDescription("");
+    setTargetTask(undefined);
   };
 
   return (
     <div className="container mx-auto grid grid-cols-1 gap-y-24">
       <TaskForm
         saveTask={saveTask}
-        title={title}
-        description={description}
-        onChangeDescription={onChangeDescription}
-        onChangeTitle={onChangeTitle}
         changeToCreationForm={changeToCreationForm}
-        editMode={Boolean(targetId)}
+        targetTask={targetTask}
       />
       <TaskList list={tasksList} removeTask={removeTask} editTask={editTask} />
     </div>

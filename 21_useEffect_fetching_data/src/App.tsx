@@ -1,7 +1,7 @@
-import { TimeContainer } from "./containers/timer-container";
+import { CounterContainer } from "./containers/counter-container";
 
 function App() {
-  return <TimeContainer />;
+  return <CounterContainer />;
 }
 
 export default App;
