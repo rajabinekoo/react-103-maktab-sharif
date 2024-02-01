@@ -1,0 +1,1 @@
+This app uses 14_sneaker_store as server app.
