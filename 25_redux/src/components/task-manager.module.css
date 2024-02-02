@@ -1,0 +1,14 @@
+.taskItem {
+  border: 1px solid lightslategray;
+  padding: 5px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.listWrapper {
+  margin-top: 10px;
+}
+
+.danger {
+  color: red;
+}
