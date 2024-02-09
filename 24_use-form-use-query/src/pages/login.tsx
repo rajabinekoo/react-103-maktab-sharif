@@ -77,7 +77,23 @@ export function LoginPage() {
               <Controller
                 render={({ field }) => (
                   <Input
-                    type="password"
+                    type="text"
+                    id="email"
+                    label="Email"
+                    error={formState.errors.email}
+                    {...field}
+                  />
+                )}
+                control={control}
+                name="email"
+              />
+            </div>
+
+            <div className="mt-6">
+              <Controller
+                render={({ field }) => (
+                  <Input
+                    type="text"
                     id="password"
                     label="Password"
                     error={formState.errors.password}
