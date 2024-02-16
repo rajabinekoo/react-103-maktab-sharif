@@ -29,7 +29,7 @@ Admin actor:
 Accountant actor:
 
 - Can login with username and password that admin was made.
-- Can CRUD on companies (Companies are not same with name factor, In other words, accountants data isolated from others).
+- Can CRUD on companies (Companies are not same with name factor, In other words, accountants data is isolated from others).
 - Can CRUD on company ledger.
 - Accountant needs to take report: total debits, total credits and subtract of them.
 
