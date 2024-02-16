@@ -44,10 +44,13 @@ const config: Config = {
           700: "#374151",
         },
         red: {
+          50: "#FEF2F2",
+          300: "#FCA5A5",
           600: "#DC2626",
         },
         danger: "#DC2626",
         primary: {
+          400: "#A78BFA",
           700: "#6D28D9",
           800: "#5B21B6",
         },

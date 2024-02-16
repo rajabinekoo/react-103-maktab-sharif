@@ -8,7 +8,7 @@ export const PrimaryContainedButton: React.FC<IButton> = ({
     <button
       className={classNames(
         "w-full rounded-md px-sm py-xs text-white",
-        "bg-primary-700 hover:bg-primary-800"
+        "bg-primary-700 hover:bg-primary-800 disabled:bg-primary-400"
       )}
       {...props}
     >

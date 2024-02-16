@@ -1,25 +1,38 @@
 "use client";
 
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TextInput } from "@/components/inputs/textInput";
+import { getUserByCredentials } from "@/pocketbase/users";
+import { PrimaryContainedButton } from "@/components/buttons/contained-btns";
 import {
   loginFormSchema,
   loginFormType,
 } from "@/utils/validations/login-validation";
-import { PrimaryContainedButton } from "@/components/buttons/contained-btns";
-import { getUserByCredentials } from "@/pocketbase/users";
+import { classNames } from "@/utils/tools";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const [error, setError] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const router = useRouter();
   const { handleSubmit, control: loginFormControl } = useForm<loginFormType>({
     resolver: zodResolver(loginFormSchema),
   });
 
   const submitLoginForm = async (data: loginFormType) => {
-    console.log(data);
+    if (loading) return;
+    setLoading(true);
     const result = await getUserByCredentials(data.username, data.password);
-    console.log(result);
+    setError(result?.error || "");
+    setLoading(false);
+    if (result.data) {
+      router.push("/admin");
+    } else {
+      router.push("/panel");
+    }
   };
 
   return (
@@ -62,7 +75,17 @@ export default function Login() {
             <PrimaryContainedButton
               type="submit"
               title={<p className="font-semibold text-white">Login</p>}
+              disabled={loading}
             />
+          </div>
+          <div
+            className={classNames(
+              !!error ? "block" : "hidden",
+              "bg-red-50 ring-1 ring-red-300 text-red-600",
+              "px-sm py-xs rounded-md mt-md"
+            )}
+          >
+            {error}
           </div>
         </form>
       </section>
