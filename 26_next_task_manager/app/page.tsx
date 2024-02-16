@@ -1,23 +1,21 @@
-"use client";
+export const dynamic = "force-dynamic";
 
-import { TaskCard } from "@/components/task-card";
-import axios from "axios";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { TaskCard } from "@/components/task-card";
 
-export default function Home() {
-  const [todos, setTodos] = React.useState<Array<ITodo>>([]);
+async function fetchTodos(): Promise<ITodo[]> {
+  const response = await fetch(
+    `${process.env.serverUrl}/api/collections/todo/records`,
+    // { cache: "no-store" }
+    { next: { revalidate: 0 } }
+  );
+  if (!response.ok) throw new Error("Something went wrong");
+  return (await response.json())?.items;
+}
 
-  const getTasksList = async () => {
-    const response = await axios.get(
-      `${process.env.serverUrl}/api/collections/todo/records`
-    );
-    setTodos(response.data.items);
-  };
-
-  React.useEffect(() => {
-    getTasksList();
-  }, []);
+export default async function Home() {
+  const todos = await fetchTodos();
 
   return (
     <main className="container mx-auto my-20 px-10 md:px-0">
